@@ -9,7 +9,7 @@
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy.http import Request
-from arcgiswpf.items import WpfItem
+from spider.items import WpfItem
 
 import re
 
