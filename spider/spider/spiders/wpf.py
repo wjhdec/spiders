@@ -47,20 +47,20 @@ class ArcgisWpf(Spider):
         for tr_info in tr_infos:
             class_prop = {}
             if title_type.lower() == 'enumeration' and len(tr_info.xpath("td").extract()) == 4:
-                e_name = tr_info.xpath('td[2]')
+                e_name = tr_info.xpath('td[2]/descendant::text()').extract()[0]
                 e_value = tr_info.xpath('td[3]')
                 e_des = tr_info.xpath('td[4]')
-                class_prop['name'] = self.clear_str(e_name.xpath("string(.)").extract()[0])
+                class_prop['name'] = self.clear_str(e_name)
                 class_prop['value'] = self.clear_str(e_value.xpath("string(.)").extract()[0])
                 class_prop['desc'] = self.clear_str(e_des.xpath("string(.)").extract()[0])
 
             elif len(tr_info.xpath("td").extract()) == 3:
                 c_type = tr_info.xpath('td[1]/img/@title').extract()[0]
-                c_name = tr_info.xpath('td[2]')
+                c_name = tr_info.xpath('td[2]/descendant::text()').extract()[0]
                 c_des = tr_info.xpath('td[3]/div[@class = "summary"]')
 
                 class_prop['type'] = c_type
-                class_prop['name'] = self.clear_str(c_name.xpath("string(.)").extract()[0])
+                class_prop['name'] = self.clear_str(c_name)
                 class_prop['desc'] = self.clear_str(c_des.xpath("string(.)").extract()[0])
 
             if len(class_prop) > 0:
